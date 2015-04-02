@@ -1,0 +1,12 @@
+{
+  "environment": "development",
+  "httpd": {
+      "servername": "c6chef1"
+  },
+  "run_list": [
+    "role[base]"
+  ],
+  "automatic": {
+    "ipaddress": "c6chef1"
+  }
+}

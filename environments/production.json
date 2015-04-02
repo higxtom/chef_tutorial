@@ -1,0 +1,12 @@
+{
+    "name": "production",
+    "description":"Production environment",
+    "chef_type": "environment",
+    "json_class": "Chef::Environment",
+    "default_attributes": {
+        "apache": {
+            "max_childlen": "30"
+        }
+    },
+    "override_attributes": {}
+}
