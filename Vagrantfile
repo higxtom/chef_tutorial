@@ -1,11 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+VAGRANTFILE_API_VERSION = "2"
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-Vagrant.configure(2) do |config|
+
+#Vagrant.configure(2) do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -13,6 +18,9 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "opscode-centos-6.6"
+
+#  config.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.6_chef-provisionerless.box"
+#  config.omnibus.chef_version = :latest
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -26,7 +34,7 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  # config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -68,4 +76,33 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+  
+# for provisioner
+#  config.vm.provision :chef_solo do |chef|
+#    chef.cookbooks_path = "./cookbooks"
+#    chef.json = {
+#      nginx: {
+#        env: "ruby"
+#      },
+#      fluentd: {
+#        installer: "rpm"
+#      },
+#      mysql: {
+#        server_root_password: 'rootpass'
+#      }
+#    }
+#    chef.run_list = %w[
+#      recipe[yum-epel]
+#      recipe[nginx]
+#      recipe[mysql]
+#      recipe[fluentd]
+#    ]
+#  end
+  
+  config.vm.define :c6chef1 do |c6chef1|
+    c6chef1.vm.network "private_network", ip: "192.168.33.11"
+  end
+  config.vm.define :c6chef2 do |c6chef2|
+    c6chef2.vm.network "private_network", ip: "192.168.33.12"
+  end
 end
