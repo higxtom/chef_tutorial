@@ -1,0 +1,35 @@
+{
+    "builders": [{
+        "type": "virtualbox-iso",
+        "guest_os_type": "RedHat_64",
+        "iso_url": "/d04/sfw/sys/CentOS-5.4-x86_64-bin-DVD/CentOS-5.4-x86_64-bin-DVD.iso",
+        "iso_checksum": "eb027de555959f92909c496a2532021697dea49e9e308cafb961b9e54caf923c",
+        "iso_checksum_type": "sha256",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "ssh_wait_timeout": "3000s",
+        "vm_name": "box",
+        "http_directory": "./",
+        "boot_wait": "30s",
+        "boot_command":[
+          "<esc><wait>",
+          "linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg ",
+          "<enter><wait>"
+        ],
+        "shutdown_command": "sudo /sbin/poweroff"
+    }],
+    "provisioners":[{
+        "type": "shell",
+        "scripts": [
+           "base.sh"
+        ]
+    }],
+    "post-processors": [
+      {
+          "type": "vagrant",
+          "output": "./CentOS-5.4-x86_64.box"
+      }
+    ]
+}
+
+
